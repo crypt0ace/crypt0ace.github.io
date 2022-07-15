@@ -1,0 +1,211 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>http://localhost:4000/</id>
+  <title>Crypt0ace</title>
+  <subtitle>A blog for some cybersecurity stuff inclusing write ups and malware analysis.</subtitle>
+  <updated>2022-07-15T23:17:13+05:00</updated>
+  <author>
+    <name>Ahmed Sher</name>
+    <uri>http://localhost:4000/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="http://localhost:4000/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="http://localhost:4000/"/>
+  <generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator>
+  <rights> © 2022 Ahmed Sher </rights>
+  <icon>/assets/img/favicons/favicon.ico</icon>
+  <logo>/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>Resolute - HackTheBox Walkthrough</title>
+    <link href="http://localhost:4000/posts/Resolute-HackTheBox/" rel="alternate" type="text/html" title="Resolute - HackTheBox Walkthrough" />
+    <published>2022-03-23T00:00:00+05:00</published>
+  
+    <updated>2022-03-23T00:00:00+05:00</updated>
+  
+    <id>http://localhost:4000/posts/Resolute-HackTheBox/</id>
+    <content src="http://localhost:4000/posts/Resolute-HackTheBox/" />
+    <author>
+      <name>{"name"=>"crypt0ace", "link"=>"https://twitter.com/crypt0acee"}</name>
+    </author>
+
+  
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Introduction
+
+
+Hello again. Today I will be looking into a medium box based on active directory from HackTheBox made by egre55. 
+
+This box starts with an easy foothold. The password is retrieved from RPC which gives us initial access. Then we move over to ryan user which is a part of DNS Admins group that has a priv esc route. Lets get into it.
+
+Enumeration
+Nmap scan shows a lot of ports open. ...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Funbox Part 4</title>
+    <link href="http://localhost:4000/posts/Funbox-Part-4/" rel="alternate" type="text/html" title="Funbox Part 4" />
+    <published>2021-08-28T00:00:00+05:00</published>
+  
+    <updated>2021-08-28T00:00:00+05:00</updated>
+  
+    <id>http://localhost:4000/posts/Funbox-Part-4/</id>
+    <content src="http://localhost:4000/posts/Funbox-Part-4/" />
+    <author>
+      <name>{"name"=>"crypt0ace", "link"=>"https://twitter.com/crypt0acee"}</name>
+    </author>
+
+  
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Introduction
+
+
+This box is the 4th part of boxes in a series named as Funbox. You can find the series here and if your’e looking for this paticular box, here. This one is also made by 0815R2d2.
+
+This one starts out with a robots.txt file with a hidden directory. Which has upload functionality that takes our shell and gives us access in the machine. The root path is linux kernel exploitation. Le...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Doc - HackMyVM</title>
+    <link href="http://localhost:4000/posts/Doc-HackMyVM/" rel="alternate" type="text/html" title="Doc - HackMyVM" />
+    <published>2021-08-27T00:00:00+05:00</published>
+  
+    <updated>2021-08-27T00:00:00+05:00</updated>
+  
+    <id>http://localhost:4000/posts/Doc-HackMyVM/</id>
+    <content src="http://localhost:4000/posts/Doc-HackMyVM/" />
+    <author>
+      <name>{"name"=>"crypt0ace", "link"=>"https://twitter.com/crypt0acee"}</name>
+    </author>
+
+  
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Introduction
+
+
+This is an easy room on HackMyVM made by sml. You can find this room at Doc - HackMyVM.
+
+This is a simple machine that has a web server using a vulnerable program that we can exploit to gain a initial foothold. The root part after it was pretty cool. I admit I also had to ask for a nudge to look at it clearly which helped me exploit it and get a root shell. Let’s walk down the la...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Funbox Part 3</title>
+    <link href="http://localhost:4000/posts/Funbox-Part-3/" rel="alternate" type="text/html" title="Funbox Part 3" />
+    <published>2021-08-22T00:00:00+05:00</published>
+  
+    <updated>2021-08-22T00:00:00+05:00</updated>
+  
+    <id>http://localhost:4000/posts/Funbox-Part-3/</id>
+    <content src="http://localhost:4000/posts/Funbox-Part-3/" />
+    <author>
+      <name>{"name"=>"crypt0ace", "link"=>"https://twitter.com/crypt0acee"}</name>
+    </author>
+
+  
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Introduction
+
+
+Part 3 of a series of machines Funbox, which can be found here created by 0815R2d2.
+
+This is also a boot2root machine with a lot of rabit holes and can really cause a headache if you’re too focused. But fortunately didnt happen with me by chance. Starts off with a book store what has default creds and a shell being uploaded to the website. Getting in it was pretty easy to get SSH...
+    </summary>
+  
+
+  </entry>
+
+  
+  <entry>
+    <title>Funbox Part 2</title>
+    <link href="http://localhost:4000/posts/Funbox-Part-2/" rel="alternate" type="text/html" title="Funbox Part 2" />
+    <published>2021-08-18T00:00:00+05:00</published>
+  
+    <updated>2021-08-18T00:00:00+05:00</updated>
+  
+    <id>http://localhost:4000/posts/Funbox-Part-2/</id>
+    <content src="http://localhost:4000/posts/Funbox-Part-2/" />
+    <author>
+      <name>{"name"=>"crypt0ace", "link"=>"https://twitter.com/crypt0acee"}</name>
+    </author>
+
+  
+    
+  
+
+  
+    <summary>
+      
+
+
+
+
+
+      Introduction
+
+
+This is another easy rated box from Vulnhub created by 0815R2d2. Its the second part of a series of boxes called Funbox. Heres a link to this one and you can find the series on this page too: Funbox 2.
+
+Its a simple machine that starts off with a lot of work. This box is fairly easy and doesnt take long once you get through the initial part. You’ll know what I’m talking about. Af...
+    </summary>
+  
+
+  </entry>
+
+</feed>
+
+
