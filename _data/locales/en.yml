@@ -4,14 +4,12 @@
 
 layout:
   post: Post
-  category: Category
   tag: Tag
 
 # The tabs of sidebar
 tabs:
   # format: <filename_without_extension>: <value>
   home: Home
-  categories: Categories
   tags: Tags
   archives: Archives
   about: About
@@ -74,10 +72,10 @@ post:
   pin_prompt: Pinned
 
 # categories page
-categories:
-  category_measure:
-    singular: category
-    plural: categories
-  post_measure:
-    singular: post
-    plural: posts
+# categories:
+#   category_measure:
+#     singular: category
+#     plural: categories
+#   post_measure:
+#     singular: post
+#     plural: posts
