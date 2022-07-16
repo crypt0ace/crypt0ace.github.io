@@ -1,5 +1,8 @@
 ---
 title: "Panic At The Disco - Stego Challenge"
+author:
+  name: crypt0ace
+  link: https://twitter.com/crypt0acee
 date: 2021-06-13
 description: "A Stegonography Challenge from DigitalOverdose CTF 2021"
 tags: [Write-Ups]
