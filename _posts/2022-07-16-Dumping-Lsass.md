@@ -18,6 +18,7 @@ First we can use the `sekurlsa::logonPasswords` if we are working with an old Wi
 ![Dumping Logon Passwords](/assets/img/dump-lsass/dumping_logonpasswords.png)
 This dumps a lot of information but we can see the values of WDigest passwords are empty. Which can mean that the Windows version is new. But the NTLM hashes do get dumped.
 ![Null Passwords](/assets/img/dump-lsass/null_passwords.png)
+<br>
 We can also use the `lsadump::lsa /patch` module to dump all the hashes from LSASS including the user accounts that were not dumped in logon passwords before.
 ![LSA Dump](/assets/img/dump-lsass/lsa_dump.png)
 We can test the hashes or we can use hashcat to crack them
