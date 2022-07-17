@@ -54,7 +54,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 # Nmap done at Sun May 29 08:47:50 2022 -- 1 IP address (1 host up) scanned in 173.13 seconds
 ```
 
-We can see the usual active direcotry ports open. We can also identify the domain as `blackfield.local` which we can add to0 our `/etc/hosts` file. Going through my usual methodology we can see if RPC returns anything for anonymous login.
+We can see the usual active directory ports open. We can also identify the domain as `blackfield.local` which we can add to our `/etc/hosts` file. Going through my usual way we can see if RPC returns anything for anonymous login.
 \
 ![RPC Enum](/assets/img/blackfield-hackthebox/rpc.png)
 \
