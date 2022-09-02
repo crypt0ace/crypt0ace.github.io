@@ -91,9 +91,6 @@ As from before, we will need to know the imports we are making. For our simple s
 public static extern IntPtr VirtualAlloc(IntPtr lpAddress, int dwSize, UInt32 flAllocationType, UInt32 flProtect);
 
 [DllImport("kernel32.dll")]
-public static extern bool VirtualFree(IntPtr lpAddress, int dwSize, UInt32 dwFreeType);
-
-[DllImport("kernel32.dll")]
 private static extern IntPtr CreateThread(UInt32 lpThreadAttributes, UInt32 dwStackSize, UInt32 lpStartAddress, IntPtr param, UInt32 dwCreationFlags, ref UInt32 lpThreadId);
 
 [DllImport("kernel32.dll")]
@@ -163,9 +160,6 @@ namespace demo
   {
     [DllImport("kernel32.dll")]
     public static extern IntPtr VirtualAlloc(IntPtr lpAddress, int dwSize, UInt32 flAllocationType, UInt32 flProtect);
-
-    [DllImport("kernel32.dll")]
-    public static extern bool VirtualFree(IntPtr lpAddress, int dwSize, UInt32 dwFreeType);
 
     [DllImport("kernel32.dll")]
     private static extern IntPtr CreateThread(UInt32 lpThreadAttributes, UInt32 dwStackSize, UInt32 lpStartAddress, IntPtr param, UInt32 dwCreationFlags, ref UInt32 lpThreadId);
