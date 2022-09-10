@@ -1,5 +1,5 @@
 ---
-title: "Shellcode Injection Techniques in C#"
+title: "Shellcode Injection in C# - Part 1 - Process Injection"
 author:
   name: crypt0ace
   link: https://twitter.com/crypt0acee

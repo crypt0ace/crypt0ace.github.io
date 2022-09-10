@@ -102,7 +102,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  html-proofer (~> 3.18)
+  html-proofer (~> 3.19.4)
   jekyll-theme-chirpy (~> 5.2, >= 5.2.1)
   tzinfo (~> 1.2)
   tzinfo-data
