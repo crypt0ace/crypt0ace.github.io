@@ -191,7 +191,7 @@ IntPtr threadHandle = proc_info.hThread;
 ResumeThread(threadHandle);
 ```
 If everything went well you should have execution of your shellcode. If not look at your code again or you can always contact me and I'll be happy to help.
-![Shellcode Popping]()
+![Shellcode Popping](/assets/img/shellcode-injections-2/pop.png)
 
 ## Code
 You can find the code at my github [here](https://github.com/crypt0ace/ProcessHollow/blob/main/Program.cs). I have some other functionalities like sleep, courtesy of [Snovvcrash](https://twitter.com/snovvcrash) whose code is [here](https://ppn.snovvcrash.rocks/red-team/maldev/code-injection/process-hollowing). Also made the code look a bit less shitty. There is also a obfucated version present [here](https://github.com/crypt0ace/ProcessHollow/tree/main/Obfuscated%20Version) which was obfuscated using [Rosfuscator](https://github.com/Flangvik/RosFuscator) by [Melvin Langvik](https://twitter.com/flangvik). Works pretty well. I aslo have a powershell script that pulls the executable from the web if not touching disk is your thing. Pretty basic for now. Will be making it like [PowerSharpPack](https://github.com/S3cur3Th1sSh1t/PowerSharpPack) soon.
