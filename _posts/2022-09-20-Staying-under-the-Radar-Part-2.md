@@ -8,7 +8,7 @@ description: "Hiding imports using delegates in C#"
 tags: [Red Team]
 ---
 ## Introduction
-In this post we are going to loo kat another technique we can use in C# that can help us keep our imports hidden and the IAT clean. This is done by the use of delegates. This is not a technique you can use in mature environments and expect to get is past AVs/EDRs because they are quite smart. But still its a nice technique to know of and may confuse some defenders.
+In this post we are going to loo kat another technique we can use in C# that can help us keep our imports hidden and the Import Address Table (IAT) clean. This is done by the use of delegates. This is not a technique you can use in mature environments and expect to get is past AVs/EDRs because they are quite smart. But still its a nice technique to know of and may confuse some defenders.
 
 ## Delegates
 According to the Microsoft Docs, *A delegate is a type that represents references to methods with a particular parameter list and return type. When you instantiate a delegate, you can associate its instance with any method with a compatible signature and return type. You can invoke (or call) the method through the delegate instance. Delegates are used to pass methods as arguments to other methods. Event handlers are nothing more than methods that are invoked through delegates. You create a custom method, and a class such as a windows control can call your method when a certain event occurs.* 
