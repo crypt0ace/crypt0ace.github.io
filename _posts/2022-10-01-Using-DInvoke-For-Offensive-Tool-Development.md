@@ -9,6 +9,8 @@ tags: [Red Team]
 ---
 ## Introduction:
 In this post we are going to have a look into the [D/Invoke](https://github.com/TheWover/DInvoke) project by [TheWover](https://github.com/TheWover). He also wrote a really good blog post which you can read [here](https://thewover.github.io/Dynamic-Invoke/) where he demonstrates in detail how the whole project works. It covers some really cool aspects so its highly recommended to check it out. This post mainly focuses on creating a shellcode injection tool using all the methods that he specifies in his blog.
+<br>
+Sharpsploit also has integrated D/Invoke in their project which can be read about [here](https://github.com/cobbr/SharpSploit/blob/master/SharpSploit/SharpSploit%20-%20Quick%20Command%20Reference.md#sharpsploitexecutiondynamicinvoke).
 
 ## What is D/Invoke
 I have talked about what P/Invoke or Platform Invoke is in the previous posts ([here](https://crypt0ace.github.io/posts/WinAPI-and-PInvoke-in-CSharp/) if youre interested). Its a great way to use WinAPI and unmanaged code into our managed C# code. But it has some issues for us as offensive tool developers. Its not really OPSEC safe. A lot of AVs/EDRs catch these tools easily. In the last post, I talked about how EDRs usually work by hooking into processes and how we can try and evade their detections by unhooking DLLs. A good method but still not OPSEC safe. What if the defenders look at those specific imports that are made to unhook the DLLs? What is they are looking at the suspicious imports? Thats where D/Invoke comes in.
@@ -26,7 +28,7 @@ There's 4 different ways we can use D/Invoke.
 - Syscalls Method
 
 ### Dynamic API or Classic Method
-The simplest and easiest way to get started with D/Invoke is using teh dynamic API method. It is called using `DynamicAPIInvoke` and it uses `GetLibraryAddress` to locate the function specified from the module in memory or from disk. I have cloned the [D/Invoke](https://github.com/TheWover/DInvoke) repo from github and added the D/Invoke folder in my solution on Visual Studio. For our demo, we are using these API calls
+The simplest and easiest way to get started with D/Invoke is using teh dynamic API method. It is called using `DynamicAPIInvoke` and it uses `GetLibraryAddress` to locate the function specified from the module in memory or from disk. I have cloned the [D/Invoke](https://github.com/TheWover/DInvoke) repo from github and added the D/Invoke folder in my solution on Visual Studio. Should be noted that this project is also available in nuget so you can get the DLL directly and use that too. For our demo, we are using these API calls
 
 - OpenProcess
 - VirtualAllocEx
