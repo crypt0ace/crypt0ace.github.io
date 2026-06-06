@@ -58,7 +58,7 @@ Resets:     0
 Or in an Administrator command line with
 
 ```powershell
-windbgx -k com:pipe,port=\\.\pipe\huntdrv,baud=115200,resets=0,reconnect
+windbgx -k com:pipe,port=\\.\pipe\VulnDr,baud=115200,resets=0,reconnect
 ```
 
 Once its started, inside the WinDBG we can set up windows debugging symbols using `.symfix C:\Symbols` and just to test if its working we can use the GUI and click on the break option to pause the kernel and then `g` to resume. 
@@ -760,7 +760,7 @@ One other line to note in all the three handlers is this
 systemBuffer = Irp->AssociatedIrp.SystemBuffer;
 ```
 
-This is a typical implementation of `METHOD_BUFFERED` (this will make sense in the `piblic.h` header file). In `METHOD_BUFFERED`, the I/O Manager allocates a kernel buffer, copies user input into it, gives the driver access through `Irp->AssociatedIrp.SystemBuffer`, and after the driver completes the IRP, copies the output bytes back to the caller. So the flow becomes
+This is a typical implementation of `METHOD_BUFFERED` (this will make sense in the `public.h` header file). In `METHOD_BUFFERED`, the I/O Manager allocates a kernel buffer, copies user input into it, gives the driver access through `Irp->AssociatedIrp.SystemBuffer`, and after the driver completes the IRP, copies the output bytes back to the caller. So the flow becomes
 
 ```text
 User buffer
@@ -783,8 +783,6 @@ For this to work, we will also include a `public.h` header file.
 
 ```c
 #pragma once
-
-#include <ntddk.h>
 
 #define VULNDR_DEVICE_NAME      L"\\Device\\VulnDr"
 #define VULNDR_DOS_DEVICE_NAME  L"\\DosDevices\\VulnDr"
@@ -1038,7 +1036,7 @@ And the raw structure can be seen using this
 dt nt!_IRP @rdx
 ```
 
-Which returns the follwoing. 
+Which returns the following. 
 
 ```text
 1: kd> dt nt!_IRP @rdx
@@ -1398,7 +1396,7 @@ case IOCTL_VULNDR_SAFE_WRITE_FAKE_REGION:
     );
 ```
 
-To test this scenario, we will be using the same client but add in the functions for testing teh read and write operations.
+To test this scenario, we will be using the same client but add in the functions for testing the read and write operations.
 
 ```c
 static void TestFakeRegionReadWrite(HANDLE hDevice)
@@ -1497,7 +1495,7 @@ static void TestFakeRegionReadWrite(HANDLE hDevice)
 }
 ```
 
-This essentially does 3 things. Reads the 48 bytes from kernel memory, writes a string into the kernel memory from user mode and then reads the same string to confirm it wrote successfully. We can see the debug output to check it works as we expect.
+This essentially does 3 things. Reads 48 bytes from the fake driver buffer, writes a string into the fake driver buffer from user mode and then reads the same string to confirm it wrote successfully. We can see the debug output to check it works as we expect.
 
 ![image.png](/assets/img/Hunting-For-Vulnerable-Drivers/09.png)
 
@@ -1613,7 +1611,7 @@ RtlCopyMemory(
 );
 ```
 
-The data from `Request->Data` is sent to the buffer without any validations. We can exploit is using this code.
+The data from `Request->Data` is sent to the buffer without any validations. We can exploit it using this code.
 
 ```c
 #include <windows.h>
@@ -1742,7 +1740,7 @@ VulnDr!VulnDrDeviceControl
 VulnDr!VulnDrHandleVulnStackOverflow
 ```
 
-The `RIP` instruction in the command shows our current instruction pointer. The `RSP` matches the stack frame of our code from the stack frame as well. `RAX` contains our IOCTL code. 
+The `RIP` instruction in the command shows our current instruction pointer. The `RSP` matches the stack frame of our code from the stack frame as well. In this specific break, RAX appears to contain the IOCTL value, but this is not something I would rely on as a calling convention rule. The reliable way to confirm the IOCTL is through the IRP stack location, the local ioctlCode variable, or !irp. 
 
 The line here
 
@@ -1751,7 +1749,7 @@ VulnDr!VulnDrHandleVulnStackOverflow:
 fffff804`0c101b70 89542410        mov     dword ptr [rsp+10h],edx ss:0018:ffffeb8e`977aa8e8=00000000
 ```
 
-Shows the current execution assembly code. Its putting the value in `RDX` which is `0x204` , into `RSP` + 0x10. The following aslo shows that currently the `RSP` is zero’ed out. 
+Shows the current execution assembly code. Its putting the value in `RDX` which is `0x204` , into `RSP` + 0x10. This instruction stores the lower 32 bits of RDX at [RSP+0x10]. WinDbg also shows that the destination memory location currently contains 00000000 before the instruction executes. This does not mean RSP is zero; RSP is the stack pointer address.
 
 ![image.png](/assets/img/Hunting-For-Vulnerable-Drivers/10.png)
 
@@ -1812,21 +1810,20 @@ ffffeb8e`977aa930  41 41 41 41 41 41 41 41-41 41 41 41 41 41 41 41  AAAAAAAAAAAA
 ffffeb8e`977aa940  41 41 41 41 41 41 41 41-41 41 41 41 41 41 41 41  AAAAAAAAAAAAAAAA
 ```
 
-Great its working. We have overflown the stack with our input because of an insecure driver. Continuing this will cause the VM to crash. WinDBG will pause on its own and let us analyze the crash. 
+Great its working. After the copy, `dv /v` shows `Request = 0x41414141\41414141`. This does not mean the original request pointer legitimately changed. It means the overflow wrote `A` bytes beyond the 32-byte stack buffer and corrupted nearby stack storage, including the local variable slot that WinDbg uses to `displayRequest`. We have overflown the stack with our input because of an insecure driver. Continuing this will cause the VM to crash. WinDBG will pause on its own and let us analyze the crash. 
 
 ```text
 !analyze -v
 kv
 ```
 
-The first command will spew out a lot of data but looking at it we can easily corelate the crash with our vulnerable driver.
+The first command will spew out a lot of data but looking at it we can easily correlate the crash with our vulnerable driver.
 
 At this point, we have gone from a completely empty WDM driver project to a working Windows kernel driver that can be loaded, unloaded, opened from user mode, controlled through IOCTLs, and observed through WinDbg. We started with safe functionality to understand how normal driver communication works, then added dangerous-looking but controlled IOCTLs to understand what real vulnerable driver interfaces often resemble. Finally, we introduced one intentionally vulnerable IOCTL to demonstrate how a simple trust-boundary mistake, such as copying a user-controlled size into a fixed kernel stack buffer, can turn normal driver functionality into a crashable bug. This gives us the foundation needed for the next part, where we will stop looking at the source code and start reversing the compiled driver like a real third-party target: finding device names, symbolic links, dispatch routines, IOCTL codes, and vulnerable paths directly from the binary.
 
 ## References
 
 ```text
-https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk
 https://learn.microsoft.com/en-us/windows-hardware/drivers/download-the-wdk
 https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/writing-a-driverentry-routine
 https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/introduction-to-standard-driver-routines
