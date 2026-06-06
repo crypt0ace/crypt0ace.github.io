@@ -18,3 +18,20 @@ vendor
 # npm dependencies
 node_modules
 package-lock.json
+
+# Jekyll
+_site/
+.jekyll-cache/
+.sass-cache/
+.jekyll-metadata
+
+# Bundler
+.bundle/
+vendor/bundle/
+
+# Visual Studio
+.vs/
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
